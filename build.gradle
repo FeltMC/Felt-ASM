@@ -1,0 +1,59 @@
+plugins {
+	id 'maven-publish'
+}
+apply plugin: "java"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+	mavenCentral()
+	maven {
+		url "https://repo.spongepowered.org/maven"
+	}
+}
+
+dependencies {
+	compileOnly("org.spongepowered:mixin:0.8.5")
+	compileOnly("org.apache.commons:commons-lang3:3.3.2")
+	compileOnly("org.ow2.asm:asm-debug-all:5.2")
+}
+
+tasks.withType(JavaCompile).configureEach {
+	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+	it.options.release = 17
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+}
+
+// configure the maven publication
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId - "io.github.feltmc"
+			from components.java
+		}
+	}
+
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		maven {
+			url 'https://repo.repsy.io/mvn/distant/feltmc'
+			credentials {
+				//username ENV.MAVEN_PUBLISH_USERNAME
+				//password ENV.MAVEN_PUBLISH_TOKEN
+			}
+			authentication {
+				basic(BasicAuthentication)
+			}
+		}
+	}
+}
