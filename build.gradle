@@ -39,6 +39,7 @@ publishing {
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
 		maven {
+			def ENV = System.getenv()
 			url 'https://repo.repsy.io/mvn/distant/feltmc'
 			credentials {
 				username ENV.MAVEN_PUBLISH_USERNAME
