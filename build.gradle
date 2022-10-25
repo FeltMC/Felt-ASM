@@ -42,8 +42,8 @@ publishing {
 			def ENV = System.getenv()
 			url 'https://repo.repsy.io/mvn/distant/feltmc'
 			credentials {
-				username ENV.MAVEN_PUBLISH_USERNAME
-				password ENV.MAVEN_PUBLISH_TOKEN
+				username ENV.MAVEN_USERNAME
+				password ENV.MAVEN_PASSWORD
 			}
 			authentication {
 				basic(BasicAuthentication)
