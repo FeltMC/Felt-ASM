@@ -41,8 +41,8 @@ publishing {
 		maven {
 			url 'https://repo.repsy.io/mvn/distant/feltmc'
 			credentials {
-				//username ENV.MAVEN_PUBLISH_USERNAME
-				//password ENV.MAVEN_PUBLISH_TOKEN
+				username ENV.MAVEN_PUBLISH_USERNAME
+				password ENV.MAVEN_PUBLISH_TOKEN
 			}
 			authentication {
 				basic(BasicAuthentication)
