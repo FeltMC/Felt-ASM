@@ -8,11 +8,12 @@ import org.spongepowered.asm.mixin.injection.selectors.ITargetSelectorDynamic;
 import org.spongepowered.asm.mixin.injection.selectors.InvalidSelectorException;
 import org.spongepowered.asm.mixin.injection.selectors.MatchResult;
 
-@ITargetSelectorDynamic.SelectorId("RedirectHandler")
-public class RedirectHandlerSelector implements ITargetSelectorDynamic, ITargetSelectorByName {
-    private final String name;
+@ITargetSelectorDynamic.SelectorId("MixinMethodHandler")
+public class MixinMethodHandlerSelector implements ITargetSelectorDynamic, ITargetSelectorByName {
+    private final String prefix, name;
 
-    public RedirectHandlerSelector(String name) {
+    public MixinMethodHandlerSelector(String prefix, String name) {
+        this.prefix = prefix;
         this.name = name;
     }
 
@@ -38,7 +39,7 @@ public class RedirectHandlerSelector implements ITargetSelectorDynamic, ITargetS
 
     @Override
     public MatchResult matches(String owner, String name, String desc) {
-        return name.startsWith("redirect$") && name.endsWith("$" + this.name) ? MatchResult.EXACT_MATCH : MatchResult.NONE;
+        return name.startsWith(prefix + "$") && name.endsWith("$" + this.name) ? MatchResult.EXACT_MATCH : MatchResult.NONE;
     }
 
     @Override
@@ -76,7 +77,7 @@ public class RedirectHandlerSelector implements ITargetSelectorDynamic, ITargetS
         return this.matches(node.getOwner(), node.getName(), node.getDesc());
     }
 
-    public static RedirectHandlerSelector parse(String input, ISelectorContext context) {
-        return new RedirectHandlerSelector(input);
+    public static MixinMethodHandlerSelector parse(String prefix, String input, ISelectorContext context) {
+        return new MixinMethodHandlerSelector(prefix, input);
     }
 }
