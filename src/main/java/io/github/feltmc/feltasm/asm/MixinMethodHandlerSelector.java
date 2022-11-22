@@ -24,7 +24,7 @@ public class MixinMethodHandlerSelector implements ITargetSelectorDynamic, ITarg
 
     @Override
     public String getName() {
-        return name;
+        return prefix + "$" + name;
     }
 
     @Override
