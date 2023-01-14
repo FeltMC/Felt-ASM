@@ -9,7 +9,7 @@ import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
 
-@SupportedAnnotationTypes("org.spongepowered.asm.mixin.injection.Redirect")
+@SupportedAnnotationTypes({})
 public class FeltAsmAP extends AbstractProcessor {
 
     public FeltAsmAP(){
