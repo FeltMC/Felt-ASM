@@ -77,7 +77,21 @@ public class MixinMethodHandlerSelector implements ITargetSelectorDynamic, ITarg
         return this.matches(node.getOwner(), node.getName(), node.getDesc());
     }
 
-    public static MixinMethodHandlerSelector parse(String prefix, String input, ISelectorContext context) {
-        return new MixinMethodHandlerSelector(prefix, input);
+    public static MixinMethodHandlerSelector parse(String input, ISelectorContext context) {
+        String[] strings = decompose(input);
+        return new MixinMethodHandlerSelector(strings[0], strings[1]);
+    }
+
+    protected static String[] decompose(String location) {
+        if (!location.contains(":")) throw new InvalidSelectorException("input must contain a colon!");
+        String[] strings = new String[2];
+        int i = location.indexOf(':');
+        if (i >= 1) {
+            strings[1] = location.substring(i + 1);
+            strings[0] = location.substring(0, i);
+        } else if (i == 0){
+            throw new InvalidSelectorException("input cannot start with a colon!");
+        }
+        return strings;
     }
 }
