@@ -1,0 +1,4 @@
+{
+  "minVersion": "0.8",
+  "plugin": "io.github.feltmc.feltasm.platform.forge.FeltASMMixinPlugin"
+}

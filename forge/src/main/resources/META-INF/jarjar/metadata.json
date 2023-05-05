@@ -1,0 +1,15 @@
+{
+  "jars": [
+    {
+      "identifier": {
+        "group": "io.github.feltmc",
+        "artifact": "Felt-ASM"
+      },
+      "version": {
+        "range": "[${version},)",
+        "artifactVersion": "${version}"
+      },
+      "path": "META-INF/jars/Felt-ASM-${version}.jar"
+    }
+  ]
+}

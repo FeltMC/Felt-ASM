@@ -1,0 +1,13 @@
+modLoader = "javafml"
+loaderVersion = "*"
+license = "LGPL"
+
+[[mods]]
+modId = "feltasm"
+version = "${version}"
+displayName = "FeltASM"
+description = '''
+Companion library to Mixin that adds a way to mixin into other mixin methods, and a way to add new contructors and static methods!
+'''
+authors = "Trinsdar"
+displayURL = "https://github.com/FeltMC/Felt-ASM"

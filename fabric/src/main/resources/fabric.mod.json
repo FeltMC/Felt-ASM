@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "io_github_feltmc_feltasm",
+  "version": "${version}",
+  "name": "FeltASM",
+  "description": "Companion library to Mixin with lots of features to improve the compatibility and concision of your mixins!",
+  "authors": [
+    "LlamaLad7"
+  ],
+  "contact": {
+    "homepage": "https://github.com/FeltMC/Felt-ASM",
+    "sources": "https://github.com/FeltMC/Felt-ASM"
+  },
+  "license": "LGPL-3.0-or-later",
+  "environment": "*",
+  "mixins": [
+    "feltasm.init.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.11"
+  }
+}

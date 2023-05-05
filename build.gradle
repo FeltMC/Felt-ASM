@@ -1,53 +1,75 @@
 plugins {
 	id 'maven-publish'
 }
-apply plugin: "java"
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
-
-repositories {
-	mavenCentral()
-	maven {
-		url "https://repo.spongepowered.org/maven"
-	}
-}
-
-dependencies {
-	compileOnly("org.spongepowered:mixin:0.8.5")
-	compileOnly("org.apache.commons:commons-lang3:3.3.2")
-	compileOnly("org.ow2.asm:asm-debug-all:5.2")
-}
-
-java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
-}
-
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			groupId - "io.github.feltmc"
-			from components.java
+allprojects {
+	apply plugin: "java"
+	apply plugin: "maven-publish"
+	version = project.mod_version
+	group = project.maven_group
+	var moduleName = parent == null ? "common" : name
+	archivesBaseName = "feltasm-$moduleName"
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://repo.spongepowered.org/maven"
 		}
 	}
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		maven {
-			def ENV = System.getenv()
-			url 'https://repo.repsy.io/mvn/distant/feltmc'
-			credentials {
-				username ENV.MAVEN_USERNAME
-				password ENV.MAVEN_PASSWORD
+	dependencies {
+		compileOnly("org.spongepowered:mixin:0.8.5")
+		compileOnly("org.apache.commons:commons-lang3:3.3.2")
+		compileOnly("org.ow2.asm:asm-debug-all:5.2")
+	}
+
+	java {
+		// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+		// if it is present.
+		// If you remove this line, sources will not be generated.
+		withSourcesJar()
+	}
+
+// configure the maven publication
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				groupId - "io.github.feltmc"
+				artifactId = "feltasm-$moduleName"
+				from components.java
 			}
-			authentication {
-				basic(BasicAuthentication)
+		}
+
+		// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+		repositories {
+			maven {
+				def ENV = System.getenv()
+				url 'https://repo.repsy.io/mvn/distant/feltmc'
+				credentials {
+					username ENV.MAVEN_USERNAME
+					password ENV.MAVEN_PASSWORD
+				}
+				authentication {
+					basic(BasicAuthentication)
+				}
 			}
+		}
+	}
+}
+
+subprojects {
+	apply plugin: "java"
+
+	if (project.name != "forge") {
+		dependencies {
+			compileOnly(rootProject)
+		}
+
+		jar {
+			from(rootProject.sourceSets.main.output)
+		}
+
+		sourcesJar {
+			from(rootProject.sourceSets.main.allSource)
 		}
 	}
 }
