@@ -1,6 +1,6 @@
-package io.github.feltmc.feltasm.platform.forge;
+package net.feltmc.feltasm.platform.forge;
 
-import io.github.feltmc.feltasm.asm.FeltASMBootstrap;
+import net.feltmc.feltasm.asm.FeltASMBootstrap;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;

@@ -1,4 +1,4 @@
-package io.github.feltmc.feltasm.asm;
+package net.feltmc.feltasm.asm;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;

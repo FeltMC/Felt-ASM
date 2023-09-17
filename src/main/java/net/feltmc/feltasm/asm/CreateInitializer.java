@@ -1,4 +1,4 @@
-package io.github.feltmc.feltasm.asm;
+package net.feltmc.feltasm.asm;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

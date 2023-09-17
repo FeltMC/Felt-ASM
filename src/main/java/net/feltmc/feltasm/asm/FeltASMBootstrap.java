@@ -1,4 +1,4 @@
-package io.github.feltmc.feltasm.asm;
+package net.feltmc.feltasm.asm;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.objectweb.asm.Opcodes;

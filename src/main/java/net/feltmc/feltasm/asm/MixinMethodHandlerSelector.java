@@ -1,4 +1,4 @@
-package io.github.feltmc.feltasm.asm;
+package net.feltmc.feltasm.asm;
 
 import org.spongepowered.asm.mixin.injection.selectors.ElementNode;
 import org.spongepowered.asm.mixin.injection.selectors.ISelectorContext;

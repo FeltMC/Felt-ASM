@@ -1,4 +1,4 @@
-package io.github.feltmc.feltasm.platform.forge;
+package net.feltmc.feltasm.platform.forge;
 
 import net.minecraftforge.fml.common.Mod;
 
