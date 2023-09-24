@@ -42,9 +42,25 @@ public class FeltASMBootstrap {
 
                 var method = new MethodNode(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, methodNode.name, methodNode.desc, methodNode.signature, methodNode.exceptions != null ? methodNode.exceptions.toArray(String[]::new) : null);
                 method.visitCode();
-
-                method.instructions.add(methodNode.instructions);
-                method.localVariables.addAll(methodNode.localVariables);
+                
+                for (var insnNode : methodNode.instructions) {
+                    if (insnNode instanceof FieldInsnNode fieldInsnNode &&
+                        fieldInsnNode.owner.equals(slashedMixinClassName)) {
+                        fieldInsnNode.owner = slashedTargetClassName;
+                        method.instructions.add(fieldInsnNode);
+                    } else if (insnNode instanceof MethodInsnNode methodInsnNode &&
+                        methodInsnNode.owner.equals(slashedMixinClassName)) {
+                        methodInsnNode.owner = slashedTargetClassName;
+                        method.instructions.add(methodInsnNode);
+                    } else {
+                        method.instructions.add(insnNode);
+                    }
+                }
+                
+                for (LocalVariableNode localVariable : methodNode.localVariables) {
+                    if (!localVariable.name.equals("this"))
+                        method.localVariables.add(localVariable);
+                }
 
                 method.visitEnd();
 
